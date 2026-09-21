@@ -8,7 +8,7 @@ const H = 1080;
 /* The credit line, on the card and in the app. */
 export const AUTHOR = {
   handle: '@absolya227',
-  url: 'https://x.com/absolya227',
+  url: 'https://x.com/absolya227/status/2101843635121856653',
 };
 
 function drawCard(canvas, standing) {
