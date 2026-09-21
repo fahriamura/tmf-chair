@@ -27,7 +27,7 @@ export function buildCaption(standing) {
   lines.push('');
   lines.push('@TheMutualFun');
   lines.push('');
-  lines.push('https://x.com/absolya227/status/2101843635121856653?s=20')
+  lines.push('https://x.com/absolya227/status/2101843635121856653')
 
   return lines.join('\n');
 }
