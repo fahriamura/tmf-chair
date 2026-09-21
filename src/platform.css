@@ -15,15 +15,20 @@
 html {
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: transparent; /* no gray flash on tap */
-  overflow-x: hidden;
-  /* Pull to refresh and the whole page rubber band are wrong for a tool with
-     its own scrolling regions. */
-  overscroll-behavior: none;
+
+  /* Deliberately NOT set here:
+     - overscroll-behavior: none. It was set on html and body in an earlier
+       revision and it killed touch scrolling outright. This app is a document
+       that scrolls, not an app shell with its own inner scrollers, so chaining
+       must be left alone. Verified by measuring: with it set, wheel and drag
+       left scrollY at 0 and only the scrollbar moved.
+     - overflow-x: hidden. On html it turns the element into a scroll
+       container and the page stops scrolling by touch the same way. The real
+       fix for horizontal overflow is to find the element that is too wide,
+       which is done on the offending elements themselves. */
 }
 
 body {
-  overflow-x: hidden;
-  overscroll-behavior: none;
   /* The house look is a document, so body text stays selectable. Only controls
      are made unselectable, further down. */
 }
@@ -41,7 +46,18 @@ button[role='tab'],
   -webkit-touch-callout: none;
 }
 
-/* A tap should fire click immediately, not after the double tap zoom window. */
+/* A tap should fire click immediately, not after the double tap zoom window.
+
+   pan-y rather than manipulation, and the difference matters. manipulation
+   suppresses double tap zoom, which is what removes the tap delay, but it also
+   means the element handles its own gestures, so a vertical swipe that starts
+   on a button is swallowed and the page does not move. On a phone the header
+   is mostly buttons, which left the top 70px of the screen as a dead zone:
+   measured, a swipe starting over a tab left scrollY at 0 while the same swipe
+   over body text scrolled normally.
+
+   pan-y keeps the tap behaviour, since double tap zoom needs pan to be
+   disabled, and hands vertical scrolling back to the page. */
 button,
 a,
 [role='button'],
@@ -49,7 +65,7 @@ a,
 .tab,
 .btn,
 input[type='checkbox'] {
-  touch-action: manipulation;
+  touch-action: pan-y;
 }
 
 /* Press feedback on pointer down rather than on release, which is what makes a
@@ -142,10 +158,12 @@ h3 {
   max-width: 100%;
 }
 
-/* The horizontal tab row owns horizontal scrolling, so a swipe across it does
-   not also drag the page vertically while the user aims for a tab. */
+/* The tab row scrolls sideways, but a vertical swipe that starts on it must
+   still scroll the page. pan-x would have swallowed that, leaving the whole
+   header as a dead zone for touch scrolling. pan-x pan-y lets both through and
+   the browser still picks the horizontal axis for a sideways drag. */
 .tabs {
-  touch-action: pan-x;
+  touch-action: pan-x pan-y;
 }
 
 /* The page paints edge to edge, so the things pinned to the top and the bottom
