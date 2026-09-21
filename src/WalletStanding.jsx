@@ -160,7 +160,11 @@ export default function WalletStanding({ onShare }) {
                 onChange={(e) => setAddress(e.target.value)}
                 placeholder="0x..."
                 autoComplete="off"
+                autoCorrect="off"
+                autoCapitalize="none"
                 spellCheck={false}
+                inputMode="text"
+                enterKeyHint="go"
               />
             </label>
             <div className="btnrow">
@@ -216,6 +220,7 @@ export default function WalletStanding({ onShare }) {
                 is level 1, outside the building. The door is open.
               </div>
             ) : (
+                          <div className="tbl-scroll">
               <table className="tbl">
                 <thead>
                   <tr>
@@ -255,6 +260,7 @@ export default function WalletStanding({ onShare }) {
                   </tr>
                 </tfoot>
               </table>
+            </div>
             )}
             {standing.excludedTokens > 0 && (
               <p className="hint small">
@@ -289,7 +295,8 @@ export default function WalletStanding({ onShare }) {
           <div className="card">
             <h2>The ladder, and where this wallet sits</h2>
             <p className="hint">The published chair table, with the rung this wallet reaches on this desk's scale.</p>
-            <table className="tbl">
+                        <div className="tbl-scroll">
+              <table className="tbl">
               <thead>
                 <tr>
                   <th className="num">Rung</th>
@@ -309,6 +316,7 @@ export default function WalletStanding({ onShare }) {
                 ))}
               </tbody>
             </table>
+            </div>
             <p className="hint small">
               The published chair counts sum to {standing.share.covered.toLocaleString('en-US')}, while the house states
               a supply of {standing.share.total.toLocaleString('en-US')}. {standing.share.gap} Seats are unaccounted for

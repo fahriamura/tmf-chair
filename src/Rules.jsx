@@ -45,7 +45,8 @@ export default function Rules() {
       <div className="card">
         <h2>The chair ladder, as published</h2>
         <p className="hint">The chair is the collection’s main rarity trait.</p>
-        <table className="tbl" id="ladder">
+                    <div className="tbl-scroll">
+              <table className="tbl" id="ladder">
           <thead>
             <tr>
               <th className="num">Rung</th>
@@ -73,6 +74,7 @@ export default function Rules() {
             </tr>
           </tbody>
         </table>
+            </div>
       </div>
 
       <div className="card">

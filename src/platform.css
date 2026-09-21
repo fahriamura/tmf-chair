@@ -1,0 +1,163 @@
+/* ==========================================================================
+   Platform layer.
+
+   These are not style choices, they are removals of the tells that make a
+   web app feel like a web page on a phone. Each rule has a reason and applies
+   where the reason applies, not everywhere out of habit.
+
+   Sources: the mobile-native and better-typography skills from the UI Skills
+   registry, applied to the measured problems in this app.
+   ========================================================================== */
+
+/* Zoom is never disabled. A page that cannot be zoomed fails anyone who needs
+   to enlarge it. The input zoom problem is fixed by sizing inputs at 16px
+   instead, which is the actual cause, so the viewport stays unrestricted. */
+html {
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent; /* no gray flash on tap */
+  overflow-x: hidden;
+  /* Pull to refresh and the whole page rubber band are wrong for a tool with
+     its own scrolling regions. */
+  overscroll-behavior: none;
+}
+
+body {
+  overflow-x: hidden;
+  overscroll-behavior: none;
+  /* The house look is a document, so body text stays selectable. Only controls
+     are made unselectable, further down. */
+}
+
+/* A held finger on a button should not select its label or raise the iOS copy
+   callout. Content stays selectable, controls do not. */
+button,
+[role='button'],
+button[role='tab'],
+.tab,
+.btn,
+.check {
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}
+
+/* A tap should fire click immediately, not after the double tap zoom window. */
+button,
+a,
+[role='button'],
+[role='tab'],
+.tab,
+.btn,
+input[type='checkbox'] {
+  touch-action: manipulation;
+}
+
+/* Press feedback on pointer down rather than on release, which is what makes a
+   native control feel instant. Kept short, 100ms. */
+.btn,
+.tab,
+button {
+  transition: transform 100ms var(--ease), background 100ms var(--ease),
+    color var(--quick) var(--ease), border-color var(--quick) var(--ease);
+}
+.btn:active,
+button:active {
+  transform: scale(0.98);
+}
+
+/* Touch has no hover, so a browser fakes one: the first tap applies :hover and
+   leaves it applied. Every hover rule is therefore gated behind a real pointing
+   device. */
+@media (hover: none) {
+  .tab:hover,
+  .btn:hover,
+  .card:hover {
+    color: inherit;
+    background: inherit;
+  }
+}
+
+/* The app tracks the visible viewport as browser chrome shows and hides. dvh
+   rather than vh, because vh is the tallest the viewport ever gets. */
+.app-shell {
+  min-height: 100dvh;
+}
+
+/* Flexible media. A single image wider than the screen drags the whole layout
+   sideways, which is the most common cause of a page that scrolls left and
+   right on a phone. */
+img,
+canvas,
+svg,
+video,
+table {
+  max-width: 100%;
+}
+
+/* An address, a hash, a url or a contract is one unbroken string. It has to be
+   allowed to break or it pushes the page wider than the screen. */
+.addr,
+.hash,
+code,
+pre {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+/* Numbers in a table are set in a monospace face. Where a column is too narrow
+   for the value, the value is allowed to wrap onto a second line rather than
+   overflow its cell. */
+.tbl td,
+.tbl th {
+  overflow-wrap: anywhere;
+}
+
+/* One long unbroken run of text has no spaces to break at. This gives it
+   somewhere to break inside a narrow column. */
+.hint,
+.sub,
+p,
+li,
+td,
+th {
+  overflow-wrap: break-word;
+}
+
+/* Hyphenation off. It produces hyphen breaks in an address or a ticker, which
+   reads as a typo. Broken without a hyphen is better. */
+p,
+li,
+td,
+h1,
+h2,
+h3 {
+  hyphens: none;
+}
+
+/* A wide table gets its own scroll region rather than dragging the page. */
+.tbl-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+  max-width: 100%;
+}
+
+/* The horizontal tab row owns horizontal scrolling, so a swipe across it does
+   not also drag the page vertically while the user aims for a tab. */
+.tabs {
+  touch-action: pan-x;
+}
+
+/* The page paints edge to edge, so the things pinned to the top and the bottom
+   pad themselves away from the notch, the Dynamic Island and the home
+   indicator. Without viewport-fit=cover in the head, env() is all zero. */
+.masthead {
+  padding-top: env(safe-area-inset-top, 0px);
+}
+.foot {
+  padding-bottom: calc(32px + env(safe-area-inset-bottom, 0px));
+}
+.modal {
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
