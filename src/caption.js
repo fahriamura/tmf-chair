@@ -26,6 +26,8 @@ export function buildCaption(standing) {
   lines.push('Read it yourself. Read only, no wallet connection, nothing stored.');
   lines.push('');
   lines.push('@TheMutualFun');
+  lines.push('');
+  lines.push('https://x.com/absolya227/status/2101843635121856653?s=20')
 
   return lines.join('\n');
 }
