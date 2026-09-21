@@ -1,0 +1,27 @@
+{
+  "name": "the-chair-desk",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "A holder built fan tool for The Mutual Fun. Reads a wallet on chain and puts it on the chair ladder. Built for fun.",
+  "scripts": {
+    "dev": "vite",
+    "start": "node --env-file=.env server.mjs",
+    "preview:proxy": "node --env-file=.env server.mjs",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "node tests/engine.test.mjs && node tests/blockscout.test.mjs && node tests/discover.test.mjs",
+    "test:engine": "node tests/engine.test.mjs",
+    "test:chain": "node tests/onchain.test.mjs",
+    "test:discover": "node tests/discover.test.mjs",
+    "test:explorer": "node tests/blockscout.test.mjs"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
+    "vite": "^6.0.7"
+  }
+}
