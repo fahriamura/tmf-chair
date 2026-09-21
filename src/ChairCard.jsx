@@ -109,7 +109,8 @@ export function PowerBreakdown({ power }) {
     <div className="card">
       <h2>How the power was worked out</h2>
       <p className="hint">Four terms, four fixed weights. Every figure below was read from a node during this scan.</p>
-      <table className="tbl power-tbl">
+                  <div className="tbl-scroll">
+              <table className="tbl power-tbl">
         <thead>
           <tr>
             <th className="num">#</th>
@@ -152,6 +153,7 @@ export function PowerBreakdown({ power }) {
           </tr>
         </tfoot>
       </table>
+            </div>
       <p className="hint small">
         Term 2 counts distinct collections, so breadth beats a stack in one drop. Term 3 counts distinct contracts the
         wallet touched in this scan plus one if it holds a native balance. Term 4 is the account nonce, which is exactly

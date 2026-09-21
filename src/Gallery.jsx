@@ -118,7 +118,8 @@ export default function Gallery() {
         <div className="card">
           <h2>Frames</h2>
           <p className="hint">Five designs, two of them rare.</p>
-          <table className="tbl">
+                      <div className="tbl-scroll">
+              <table className="tbl">
             <thead>
               <tr>
                 <th>Frame</th>
@@ -150,6 +151,7 @@ export default function Gallery() {
               </tr>
             </tfoot>
           </table>
+            </div>
         </div>
 
         <div className="card">
@@ -158,7 +160,8 @@ export default function Gallery() {
             About fifteen percent of sitters are not human: a ghost, a robot, a skull, a mannequin, a vampire, an alien,
             and a golden retriever. 601 of the 4,001.
           </p>
-          <table className="tbl">
+                      <div className="tbl-scroll">
+              <table className="tbl">
             <thead>
               <tr>
                 <th>Sitter</th>
@@ -176,6 +179,7 @@ export default function Gallery() {
               ))}
             </tbody>
           </table>
+            </div>
         </div>
       </div>
 

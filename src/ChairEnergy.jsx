@@ -156,7 +156,8 @@ export default function ChairEnergy() {
       <div className="card">
         <h2>Where the reading came from</h2>
         <p className="hint">Each line is one rule, its weight, and how this post did against it.</p>
-        <table className="tbl" id="energy-breakdown">
+                    <div className="tbl-scroll">
+              <table className="tbl" id="energy-breakdown">
           <thead>
             <tr>
               <th>Rule</th>
@@ -182,6 +183,7 @@ export default function ChairEnergy() {
             ))}
           </tbody>
         </table>
+            </div>
       </div>
     </>
   );
